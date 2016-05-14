@@ -7,7 +7,8 @@ package mrówka_langtona;
 
 /**
  *
- * @author Aleksandra
+ * @author Aleksandra Wyszecka
+ * @author Damian Winczewski
  */
 public class Mrówka_Langtona {
 
