@@ -5,6 +5,8 @@
  */
 package mrówka_langtona;
 
+import java.awt.*;
+import java.awt.geom.*;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -17,66 +19,93 @@ import javax.swing.*;
 
 public class Mrówka_Langtona {
     
-    static class Okno extends JFrame implements ActionListener{
+    static class Frame extends JFrame implements ActionListener{
         
             JButton Start = new JButton("START");
             JButton Stop = new JButton("STOP");
-            JButton Tworzenie = new JButton("Dodaj mrówkę");
-            JButton Skakanie = new JButton("Wykonaj kroki");
+            JButton AddingAnt = new JButton("ADD ANT");
+            JButton GoTo = new JButton("DO STEPS");
             
-            JTextField licznik = new JTextField(5);
-            JTextField kroki = new JTextField(5);
+            JTextField Counter = new JTextField(5);
+            JTextField AddingSteps = new JTextField(5);
             
-            JLabel LicznikLabel = new JLabel("Ilość kroków");
-            
-        public Okno(){
+            JLabel StepLabel = new JLabel("STEP: ");
+                                   
+        public Frame(){
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setSize(1000,700);
-         //   setState(ICONIFIED);
-         
             setTitle("Mrówka Langtona");
+            //FullScrean
+            Toolkit kit = Toolkit.getDefaultToolkit();
+            Dimension screenSize = kit.getScreenSize();
+            int screenWidth = screenSize.width;         // przedtem 1000
+            int screenHeight = screenSize.height;       // przedtem  700            
+            setSize(screenWidth, screenHeight);
+            //Tło
             setLayout(null);
             
+            //Przyciski
             Start.setBounds(10, 10, 100, 40);
-            Stop.setBounds(10, 60, 100, 40);
-            Tworzenie.setBounds(10, 110, 130, 40);
-            Skakanie.setBounds(10, 240, 150, 40);
-            kroki.setBounds(30, 210, 100, 30);
-            licznik.setBounds(500, 10, 100, 50);
-            LicznikLabel.setBounds(410, 10, 100, 40);
+            Stop.setBounds(120, 10, 100, 40);            
+            AddingAnt.setBounds(230, 10, 100, 40);
+            
+            //przeskok o liczbę kroków
+            AddingSteps.setBounds(340, 15, 100, 30);           
+            GoTo.setBounds(450, 10, 100, 40);
+            
+            //Licznik kroków
+            StepLabel.setBounds(560, 10, 50, 40);                     
+            Counter.setBounds(610, 15, 100, 30);
+            
             
             Start.addActionListener(this);
             Stop.addActionListener(this);
-            Tworzenie.addActionListener(this);
-            Skakanie.addActionListener(this);
+            
+            AddingAnt.addActionListener(this);
+            
+            GoTo.addActionListener(this);
             
             add(Start);
             add(Stop);
-            add(Tworzenie);
-            add(Skakanie);
-            add(kroki);
-            add(licznik);
-            add(LicznikLabel);
-            
+            add(AddingAnt);
+            add(GoTo);
+            add(AddingSteps);
+            add(Counter);
+            add(StepLabel);
+
             setVisible(true);
         } 
         
+            @Override
         public void actionPerformed(ActionEvent e){
             //Object zrodlo = e.getSource();
-            long a, b;
-            a = 0;
-            b = Long.parseLong(kroki.getText());
+            long aSteps, aStepsToJump;
+            aSteps = 0; //Long.parseLong(Counter.getText());
+            aStepsToJump = Long.parseLong(AddingSteps.getText());
             
-            licznik.setText(String.valueOf(a = a + b));
+            Counter.setText(String.valueOf(aSteps += aStepsToJump));
         }
+ // NIE WIEM CZEMU NIE DZIAAAAAAAAAAAAAAAAAAŁAAAAAAAAAAAAAAA!       
+        public void paintComponent(Graphics g){
+            Graphics2D g2 = (Graphics2D) g;
+            g2.clearRect(100, 100, 400, 400);
+            
+            Rectangle2D Pole = new Rectangle2D.Double(100, 100, 100, 100);
+            g2.setColor(Color.RED);
+            g2.draw(Pole);
+
+        }
+        
+
+  
+   
     }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new Okno();
+        new Frame();       
         // TODO code application logic here 
     }
     
-  }
+}
