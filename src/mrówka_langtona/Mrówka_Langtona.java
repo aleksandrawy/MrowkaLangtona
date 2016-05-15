@@ -10,7 +10,8 @@ import javax.swing.*;
 
 /**
  *
- * @author Aleksandra
+ * @author Aleksandra Wyszecka
+ * @author Damian Winczewski
  */
 
 
