@@ -8,7 +8,9 @@ package mrówka_langtona;
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.event.*;
+//import java.util.TimerTask;
 import javax.swing.*;
+import java.awt.image.BufferStrategy;
 
 /**
  *
@@ -17,46 +19,51 @@ import javax.swing.*;
  */
 
 
-public class Mrówka_Langtona {
+public class Mrówka_Langtona extends JFrame implements ActionListener{
+
     
-    static class Frame extends JFrame implements ActionListener{
-        
+//    class AntTimer extends TimerTask{
+//        public void run(){
+//            
+//        }
+//    }        
             JButton Start = new JButton("START");
             JButton Stop = new JButton("STOP");
             JButton AddingAnt = new JButton("ADD ANT");
             JButton GoTo = new JButton("DO STEPS");
             
-            JTextField Counter = new JTextField(5);
-            JTextField AddingSteps = new JTextField(5);
+            JTextField Counter = new JTextField(10); // DLACZEGO TUTTAJ JEST 5 ?    
+            JTextField AddingSteps = new JTextField(10);
             
-            JLabel StepLabel = new JLabel("STEP: ");
-                                   
-        public Frame(){
+            JLabel StepLabel = new JLabel("STEPS: ");
+                                
+        Mrówka_Langtona(){
+            
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setTitle("Mrówka Langtona");
-            //FullScrean
+        //FullScrean
             Toolkit kit = Toolkit.getDefaultToolkit();
             Dimension screenSize = kit.getScreenSize();
-            int screenWidth = screenSize.width;         // przedtem 1000
-            int screenHeight = screenSize.height;       // przedtem  700            
+            final int screenWidth = screenSize.width;         // przedtem 1000
+            final int screenHeight = screenSize.height;       // przedtem  700            
             setSize(screenWidth, screenHeight);
-            //Tło
-            setLayout(null);
+        //Tło
+           setLayout(null);
             
-            //Przyciski
+        //Przyciski
             Start.setBounds(10, 10, 100, 40);
-            Stop.setBounds(120, 10, 100, 40);            
-            AddingAnt.setBounds(230, 10, 100, 40);
+            Stop.setBounds(10, 60, 100, 40);
+        //Licznik kroków
+            StepLabel.setBounds(40, 100, 50, 30);                     
+            Counter.setBounds(10, 130, 100, 30);
+        //Dodawanie mrówki    
+            AddingAnt.setBounds(10, 170, 100, 40);
             
-            //przeskok o liczbę kroków
-            AddingSteps.setBounds(340, 15, 100, 30);           
-            GoTo.setBounds(450, 10, 100, 40);
-            
-            //Licznik kroków
-            StepLabel.setBounds(560, 10, 50, 40);                     
-            Counter.setBounds(610, 15, 100, 30);
-            
-            
+        //przeskok o liczbę kroków
+            AddingSteps.setBounds(10, 220, 100, 30);           
+            GoTo.setBounds(10, 260, 100, 40);
+              
+           
             Start.addActionListener(this);
             Stop.addActionListener(this);
             
@@ -71,41 +78,54 @@ public class Mrówka_Langtona {
             add(AddingSteps);
             add(Counter);
             add(StepLabel);
-
+            Counter.setText(String.valueOf(0));
             setVisible(true);
+            createBufferStrategy(2); 
         } 
         
             @Override
         public void actionPerformed(ActionEvent e){
-            //Object zrodlo = e.getSource();
-            long aSteps, aStepsToJump;
-            aSteps = 0; //Long.parseLong(Counter.getText());
+            Object click = e.getSource();
+            long aSteps;
+            long aStepsToJump;
+            
+            if(click==Start);
+            if(click==Stop);
+            if(click==AddingAnt);
+            if(click==GoTo){
+            aSteps = Long.parseLong(Counter.getText());    
             aStepsToJump = Long.parseLong(AddingSteps.getText());
-            
             Counter.setText(String.valueOf(aSteps += aStepsToJump));
+            }
         }
- // NIE WIEM CZEMU NIE DZIAAAAAAAAAAAAAAAAAAŁAAAAAAAAAAAAAAA!       
-        public void paintComponent(Graphics g){
-            Graphics2D g2 = (Graphics2D) g;
-            g2.clearRect(100, 100, 400, 400);
-            
-            Rectangle2D Pole = new Rectangle2D.Double(100, 100, 100, 100);
-            g2.setColor(Color.RED);
-            g2.draw(Pole);
-
-        }
-        
-
-  
-   
-    }
-
+ 
+//      public NewAnt(){
+//            
+//      }
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new Frame();       
+         Mrówka_Langtona Frame = new Mrówka_Langtona();
+     //   new paintComponent();
         // TODO code application logic here 
+
     }
     
+    public void AddAnt(Graphics g){
+        JPanel panel = new JPanel();
+        BufferStrategy bstrategy = this.getBufferStrategy();
+        Graphics2D g2d = (Graphics2D) bstrategy.getDrawGraphics();
+    
+        g2d.setColor(Color.red);
+        Rectangle gora = new Rectangle(250, 200, 100, 200);
+        Rectangle obiekt = new Rectangle (200, 100, 75, 60);
+        g2d.fill(gora);
+        
+        bstrategy.show();
+
+        }
+    
+
 }
