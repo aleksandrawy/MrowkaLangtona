@@ -26,30 +26,37 @@ public class Mrówka_Langtona extends JFrame implements ActionListener{
 //        public void run(){
 //            
 //        }
-//    }        
+//    }     
             JButton Start = new JButton("START");
             JButton Stop = new JButton("STOP");
             JButton AddingAnt = new JButton("ADD ANT");
             JButton GoTo = new JButton("DO STEPS");
             
-            JTextField Counter = new JTextField(10); // DLACZEGO TUTTAJ JEST 5 ?    
+            JTextField Counter = new JTextField(10); 
             JTextField AddingSteps = new JTextField(10);
             
             JLabel StepLabel = new JLabel("STEPS: ");
                                 
         Mrówka_Langtona(){
-            
+            Frame();
+            Buttons();
+            DrawingPanel();
+        }
+        
+        public void Frame(){
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setTitle("Mrówka Langtona");
         //FullScrean
             Toolkit kit = Toolkit.getDefaultToolkit();
             Dimension screenSize = kit.getScreenSize();
-            final int screenWidth = screenSize.width;         // przedtem 1000
-            final int screenHeight = screenSize.height;       // przedtem  700            
+            final int screenWidth = screenSize.width;       
+            final int screenHeight = screenSize.height;                
             setSize(screenWidth, screenHeight);
-        //Tło
-           setLayout(null);
-            
+        }
+
+        public void Buttons(){
+              setLayout(null);
+         
         //Przyciski
             Start.setBounds(10, 10, 100, 40);
             Stop.setBounds(10, 60, 100, 40);
@@ -63,12 +70,9 @@ public class Mrówka_Langtona extends JFrame implements ActionListener{
             AddingSteps.setBounds(10, 220, 100, 30);           
             GoTo.setBounds(10, 260, 100, 40);
               
-           
             Start.addActionListener(this);
             Stop.addActionListener(this);
-            
             AddingAnt.addActionListener(this);
-            
             GoTo.addActionListener(this);
             
             add(Start);
@@ -79,8 +83,9 @@ public class Mrówka_Langtona extends JFrame implements ActionListener{
             add(Counter);
             add(StepLabel);
             Counter.setText(String.valueOf(0));
+            
             setVisible(true);
-            createBufferStrategy(2); 
+ //           createBufferStrategy(2); 
         } 
         
             @Override
@@ -98,34 +103,21 @@ public class Mrówka_Langtona extends JFrame implements ActionListener{
             Counter.setText(String.valueOf(aSteps += aStepsToJump));
             }
         }
+        
+        public void DrawingPanel(){
+            JPanel panel = new JPanel();
+           // panel.setLayout(null);
+            panel.setBounds(200, 10, 1700, 1000);
+            panel.setBackground(Color.BLACK);
+            add(panel);
+          //  setContentPane(panel);
+            setVisible(true);
+        }
  
-//      public NewAnt(){
-//            
-//      }
-    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
          Mrówka_Langtona Frame = new Mrówka_Langtona();
-     //   new paintComponent();
-        // TODO code application logic here 
-
     }
-    
-    public void AddAnt(Graphics g){
-        JPanel panel = new JPanel();
-        BufferStrategy bstrategy = this.getBufferStrategy();
-        Graphics2D g2d = (Graphics2D) bstrategy.getDrawGraphics();
-    
-        g2d.setColor(Color.red);
-        Rectangle gora = new Rectangle(250, 200, 100, 200);
-        Rectangle obiekt = new Rectangle (200, 100, 75, 60);
-        g2d.fill(gora);
-        
-        bstrategy.show();
-
-        }
-    
-
 }
