@@ -11,6 +11,7 @@ import java.awt.event.*;
 //import java.util.TimerTask;
 import javax.swing.*;
 import java.awt.image.BufferStrategy;
+import java.util.TimerTask;
 
 /**
  *
@@ -19,14 +20,15 @@ import java.awt.image.BufferStrategy;
  */
 
 
-public class Mrówka_Langtona extends JFrame implements ActionListener{
+public class Mrówka_Langtona{
 
-    
-//    class AntTimer extends TimerTask{
-//        public void run(){
-//            
-//        }
-//    }     
+    public static void main(String[] args) {
+         Window Frame = new Window();
+         DrawingPanel panel = new DrawingPanel(Frame);
+    }
+}
+ 
+class Window extends JFrame implements ActionListener{
             JButton Start = new JButton("START");
             JButton Stop = new JButton("STOP");
             JButton AddingAnt = new JButton("ADD ANT");
@@ -37,10 +39,9 @@ public class Mrówka_Langtona extends JFrame implements ActionListener{
             
             JLabel StepLabel = new JLabel("STEPS: ");
                                 
-        Mrówka_Langtona(){
+        Window(){
             Frame();
             Buttons();
-            DrawingPanel();
         }
         
         public void Frame(){
@@ -103,21 +104,37 @@ public class Mrówka_Langtona extends JFrame implements ActionListener{
             Counter.setText(String.valueOf(aSteps += aStepsToJump));
             }
         }
-        
-        public void DrawingPanel(){
+}
+
+class DrawingPanel extends JPanel{
+
+    DrawingPanel(mrówka_langtona.Window Frame){
             JPanel panel = new JPanel();
            // panel.setLayout(null);
             panel.setBounds(200, 10, 1700, 1000);
             panel.setBackground(Color.BLACK);
-            add(panel);
+            Frame.add(panel);
           //  setContentPane(panel);
             setVisible(true);
-        }
- 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-         Mrówka_Langtona Frame = new Mrówka_Langtona();
     }
 }
+
+class AddAnt extends TimerTask{
+    
+    private int         position[];
+
+    
+        AddAnt(Graphics g){
+            Graphics2D g2d = (Graphics2D)g;
+            position[0] = 20;
+            position[1] = 40;
+            g2d.setColor(Color.PINK);
+        }
+    
+        public void run(){
+    //        Color c = getColor(position[0], position[1]);    
+            
+        }
+
+}
+
